@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./index.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css">
+
+</head>
+<style>
+  .parent-container {
+    overflow-x: hidden;
+  }
+
+  /* Example */
+  .element-with-padding {
+    box-sizing: border-box;
+  }
+
+
+
+  .bg-img.light-mode {
+    background: url('./public/BG img.png'),
+      #C6EAFF 50% / cover no-repeat;
+    height: 100vh;
+    background-size: 100%, 100%;
+    background-repeat: no-repeat;
+    /* background: #C6EAFF; */
+  }
+
+  .first-row.light-mode {
+    border-radius: 9.6px;
+    background: linear-gradient(136deg, #BCDDF4 0%, rgba(60, 179, 217, 0.51) 63.02%);
+    /* background: linear-gradient(180deg, #A5FFFA 0%, #00B2FF 90.38%); */
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .table-bg.light-mode {
+    background: #FFFAFA;
+    box-shadow: drop-shadow(0px 0px 15px rgba(0, 0, 0, 0.25));
+  }
+
+  .th.light-mode {
+    color: #353535;
+    background: #FFFAFA;
+    ;
+    /* Adjust background color as needed */
+  }
+
+  .actual-2023.light-mode,
+  .budget-2024.light-mode {
+    background: #3CB3D9;
+    color: white;
+  }
+
+  .fa-info-circle.light-mode {
+    color: black;
+  }
+
+  .theme-changer {
+    border-radius: 25px;
+    width: fit-content;
+    -webkit-writing-mode: vertical-rl;
+    background-color: black;
+  }
+
+  .theme-changer.light-mode {
+    background: white;
+  }
+
+  .themetext {
+    color: white;
+  }
+
+  .themetext.light-mode {
+    color: black;
+  }
+
+  .darkMode,
+  .lightMode {
+    font-size: 10px;
+  }
+
+  .lightMode {
+    padding: 10px 0px 10px 0px;
+    margin: 0px 3px 0px 3px !important;
+  }
+
+  .lightMode.light-mode {
+    background: #00B2FF;
+    box-shadow: 0px 0px 3.3259642124176025px 0px rgba(0, 0, 0, 0.50);
+    border: 0.333px solid #FF90AE;
+    padding: 10px 0px 10px 0px;
+    margin: 0px 3px 0px 3px !important;
+    border-radius: 25px;
+    color: white;
+  }
+
+  .darkMode {
+    border-radius: 21.55px;
+    border: 0.332px solid #403939;
+    background: #3C3232;
+    box-shadow: 0px 0px 3.315387725830078px 0px rgba(255, 255, 255, 0.61);
+    padding: 10px 0px 10px 0px;
+    margin: 0px 3px 0px 3px !important;
+    color: white !important;
+
+  }
+
+  .darkMode.light-mode {
+    border-radius: 0;
+    border: 0;
+    background: white;
+    box-shadow: 0px;
+    color: black !important;
+  }
+
+  .textblack.light-mode {
+    color: black;
+  }
+
+  .budget-div.light-mode {
+    background: white;
+    border: 1.497px solid #00B2FF;
+  }
+
+  .blackLogo {
+    display: none;
+  }
+
+  .blackLogo.light-mode {
+    display: block;
+  }
+
+  .whiteLogo.light-mode {
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="container-fluid bg-img" style="padding-top: 50px !important;">
+    <div class="row justify-content-center align-items-center pt-5 pb-3 first-row"
+      style="margin-left: 2.5%;margin-right: 2.5%;">
+      <div class="col-md-6 ps-md-3">
+        <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+          <img src="./public/Logo.png" class="whiteLogo" height="65px" alt="">
+          <img src="./public/blackLogo.png" class="blackLogo" height="65px" alt="">
+
+        </div>
+      </div>
+      <div class="col-md-6 pe-md-3">
+        <div class="d-flex align-items-center gap-3">
+          <div class="d-flex justify-content-center justify-content-md-end mt-3 mt-md-0 ms-auto">
+            <div class="budget-div">
+              <p class="budget-title text-center textblack">Budget Forecast</p>
+              <div>
+                <p class="budget-sm-text  mb-0 textblack">Prodution</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center border-1 py-2 gap-2 theme-changer">
+            <p class="themetext  m-0 px-2 darkMode" style="cursor: pointer;">
+              <i class="fa fa-moon-o"></i> Dark
+            </p>
+            <p class="themetext  m-0 px-2 lightMode" style="cursor: pointer;" id="light-mode-toggle">
+              <i class="fa fa-sun-o"></i> Light
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- </div>
+    <div class="row ps-5 pe-5 align-items-end mt-4"> -->
+      <div class="col-md-5">
+        <div class="d-md-flex align-items-center gap-2">
+          <h2 class="main-heading m-0 textblack">
+            Providers & Their Budgets:
+          </h2>
+          <div class="d-flex align-items-center select-field form-control w-25">
+            <p class="mb-0 fw-bold">Year:</p>
+            <input type="number" placeholder="2023" class="border-0 w-100" value="2023" id="yearInput">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-5">
+            <div>
+              <label for="" class="label textblack">Provider</label>
+              <select id="provider-select" class="select-field form-select mt-2">
+                <option value="0">Select Provider</option>
+                <option value="1">Alison Collier NP</option>
+                <option value="2">Alison Collier NP</option>
+                <option value="3">Alison Collier NP</option>
+                <option value="4">Alison Collier NP</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-5">
+            <div>
+              <label for="" class="label textblack">Locations</label>
+              <select id="location-select" class="select-field form-select mt-2">
+                <option value="0">Please Select Location</option>
+                <option value="1">Please Select Location</option>
+                <option value="2">Please Select Location</option>
+                <option value="3">Please Select Location</option>
+                <option value="4">Please Select Location</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row ps-md-3 pe-md-3 ">
+      <div class="col-md-12">
+        <div class="row m-0 table-heading-row table-bg">
+          <div class="col-md-5 p-0" style="border-right: 2px solid rgba(112, 112, 112, 0.93);">
+            <p class="table-heading p-2 ms-4 mb-3 actual-2023" style="margin-top: 10px;">Actual 2023</p>
+            <div class="table-responsive table-height">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th">
+
+                    </th>
+                    <th class="th">Location</th>
+                    <th class="th">Month</th>
+                    <th class="th">Avg Charges/Days</th>
+                    <th class="th">Act Work Day</th>
+                    <th class="th">Total Charges Month</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <label class="checkbox-container">
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label>
+                        <div class="dropdown ms-3">
+                          <i class="fa fa-info-circle dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 3px;"></i>
+                          <ul class="dropdown-menu table-dropdown-menu p-4" aria-labelledby="dropdownMenuButton1">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="d-flex align-items-center">
+                                  <h5 class="text-black mb-0" style="font-size: 16px;">Metric Insights</h5>
+                                  <div class="month-input d-flex align-items-center gap-2 ms-auto form-control"
+                                    style="width: 140px;">
+                                    <label for="">Year:</label>
+                                    <input type="number" placeholder="2023" class="border-0 w-100 p-0" value="2023"
+                                      id="yearInput">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="table-responsive mt-3" style="height: 300px;">
+                                  <table class="table dropdown-table">
+                                    <thead>
+                                      <tr>
+                                        <th>Contract</th>
+                                        <th>Work</th>
+                                        <th>Business</th>
+                                        <th>Vacation</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn ">
+                                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                        Export .xls</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        Export PDF</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-copy"></i>
+                                        Copy</button>
+                                    </center>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <label class="checkbox-container">
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label>
+                        <div class="dropdown ms-3">
+                          <i class="fa fa-info-circle dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 3px;"></i>
+                          <ul class="dropdown-menu table-dropdown-menu p-4" aria-labelledby="dropdownMenuButton1">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="d-flex align-items-center">
+                                  <h5 class="text-black mb-0" style="font-size: 16px;">Metric Insights</h5>
+                                  <div class="month-input d-flex align-items-center gap-2 ms-auto form-control"
+                                    style="width: 140px;">
+                                    <label for="">Year:</label>
+                                    <input type="number" placeholder="2023" class="border-0 w-100 p-0" value="2023"
+                                      id="yearInput">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="table-responsive mt-3" style="height: 300px;">
+                                  <table class="table dropdown-table">
+                                    <thead>
+                                      <tr>
+                                        <th>Contract</th>
+                                        <th>Work</th>
+                                        <th>Business</th>
+                                        <th>Vacation</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn ">
+                                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                        Export .xls</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        Export PDF</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-copy"></i>
+                                        Copy</button>
+                                    </center>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex gap-2">
+                        <label class="checkbox-container">
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                        </label>
+                        <div class="dropdown ms-3">
+                          <i class="fa fa-info-circle dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 3px;"></i>
+                          <ul class="dropdown-menu table-dropdown-menu p-4" aria-labelledby="dropdownMenuButton1">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="d-flex align-items-center">
+                                  <h5 class="text-black mb-0" style="font-size: 16px;">Metric Insights</h5>
+                                  <div class="month-input d-flex align-items-center gap-2 ms-auto form-control"
+                                    style="width: 140px;">
+                                    <label for="">Year:</label>
+                                    <input type="number" placeholder="2023" class="border-0 w-100 p-0" value="2023"
+                                      id="yearInput">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="table-responsive mt-3" style="height: 300px;">
+                                  <table class="table dropdown-table">
+                                    <thead>
+                                      <tr>
+                                        <th>Contract</th>
+                                        <th>Work</th>
+                                        <th>Business</th>
+                                        <th>Vacation</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                        <td>
+                                          <div class="td-item">
+                                            ####
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn ">
+                                        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                                        Export .xls</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                        Export PDF</button>
+                                    </center>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <center>
+                                      <button class="dropdown-btn">
+                                        <i class="fa fa-copy"></i>
+                                        Copy</button>
+                                    </center>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-md-7 p-0">
+            <p class="table-heading  p-2 me-4 mb-3 budget-2024" style="margin-top: 10px;">Budget 2024</p>
+            <div class="table-responsive table-height">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="th">Avg Rev Day</th>
+                    <th class="th">Bgt Work Day</th>
+                    <th class="th">Vacation Days</th>
+                    <th class="th">Comment</th>
+                    <th class="th">Total Rev</th>
+                    <th class="th">Rev Var</th>
+                    <th class="th">Rev Var%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                    <td>
+                      <div class="td-item">#####</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script>
+
+
+  $(document).ready(function () {
+    // Initialize select2
+    $("#provider-select").select2();
+    $("#provider-select").select2("val", "0");
+    $('#provider-select option:selected').text('Select Provider');
+    // Read selected option
+    $('#but_read').click(function () {
+      var username = $('#provider-select option:selected').text();
+      var userid = $('#provider-select').val();
+
+      $('#result').text("id : " + userid + ", name : " + username);
+    });
+  });
+
+  $(document).ready(function () {
+    // Initialize select2
+    $("#location-select").select2();
+    $("#location-select").select2("val", "0");
+    $('#location-select option:selected').text('Please Select Provider');
+    // Read selected option
+    $('#but_read').click(function () {
+      var username = $('#location-select option:selected').text();
+      var userid = $('#location-select').val();
+
+      $('#result').text("id : " + userid + ", name : " + username);
+    });
+  });
+</script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const darkModeButton = document.querySelector('.darkMode');
+    const lightModeButton = document.querySelector('.lightMode');
+    const bgImgElement = document.querySelector('.bg-img');
+    const firstRow = document.querySelector('.first-row');
+    const tableBg = document.querySelector('.table-bg');
+    const thElements = document.querySelectorAll('.th');
+    const tableName = document.querySelectorAll('.actual-2023');
+    const tableName2 = document.querySelectorAll('.budget-2024');
+    const infoCircleIcon = document.querySelectorAll('.fa-info-circle');
+    const themeButton = document.querySelectorAll('.theme-changer');
+    const themeText = document.querySelectorAll('.themetext');
+    const textBlack = document.querySelectorAll('.textblack');
+    const budgetDiv = document.querySelectorAll('.budget-div');
+    const blackLogo = document.querySelectorAll('.blackLogo');
+    const whiteLogo = document.querySelectorAll('.whiteLogo');
+
+
+
+
+
+
+    // Check if a theme is stored in local storage
+    const storedTheme = localStorage.getItem('selectedTheme');
+    if (storedTheme === 'dark') {
+      applyLightTheme();
+    } else {
+      applyDarkTheme();
+    }
+
+    darkModeButton.addEventListener('click', function () {
+
+      applyLightTheme();
+      localStorage.setItem('selectedTheme', 'dark');
+    });
+
+    lightModeButton.addEventListener('click', function () {
+      applyDarkTheme();
+      localStorage.setItem('selectedTheme', 'light');
+    });
+
+    function applyDarkTheme() {
+      bgImgElement.classList.add('light-mode');
+      firstRow.classList.add('light-mode');
+      tableBg.classList.add('light-mode');
+      thElements.forEach(th => th.classList.add('light-mode'));
+      tableName.forEach(name => name.classList.add('light-mode'));
+      tableName2.forEach(name => name.classList.add('light-mode'));
+      infoCircleIcon.forEach(name => name.classList.add('light-mode'));
+      themeButton.forEach(name => name.classList.add('light-mode'));
+      themeText.forEach(name => name.classList.add('light-mode'));
+      textBlack.forEach(name => name.classList.add('light-mode'));
+      budgetDiv.forEach(name => name.classList.add('light-mode'));
+      blackLogo.forEach(name => name.classList.add('light-mode'));
+      whiteLogo.forEach(name => name.classList.add('light-mode'));
+    }
+
+    function applyLightTheme() {
+      bgImgElement.classList.remove('light-mode');
+      firstRow.classList.remove('light-mode');
+      tableBg.classList.remove('light-mode');
+      thElements.forEach(th => th.classList.remove('light-mode'));
+      tableName.forEach(name => name.classList.remove('light-mode'));
+      tableName2.forEach(name => name.classList.remove('light-mode'));
+      infoCircleIcon.forEach(name => name.classList.remove('light-mode'));
+      themeButton.forEach(name => name.classList.remove('light-mode'));
+      themeText.forEach(name => name.classList.remove('light-mode'));
+      textBlack.forEach(name => name.classList.remove('light-mode'));
+      budgetDiv.forEach(name => name.classList.remove('light-mode'));
+      blackLogo.forEach(name => name.classList.remove('light-mode'));
+      whiteLogo.forEach(name => name.classList.remove('light-mode'));
+
+    }
+  });
+
+</script>
+<script>
+  const yearInput = document.getElementById("yearInput");
+
+  yearInput.addEventListener("input", (e) => {
+    const inputValue = e.target.value;
+    const sanitizedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+    const year = sanitizedValue.slice(0, 4); // Get first 4 characters
+    e.target.value = year; // Update input value
+  });
+</script>
+
+</html>
